@@ -11,6 +11,17 @@ var UserSchema = new Schema({
     city: { type: String, default: '' }
 });
 
+var moment = require('moment');
+moment.locale('ru');
+
+UserSchema.virtual('birthdate')
+    .get(function () {
+        return moment(this.birthday).format('YYYY-MM-DD');
+    })
+    .set(function (birthdate) {
+        this.birthday = moment(birthdate, 'YYYY-MM-DD').format();
+    });
+
 // Вывод в лог логина при сохранении сущности
 UserSchema.pre('save', function (next) {
     console.log(this.login);

@@ -18,6 +18,8 @@ router.post('/', function (request, response) {
         if (err) throw err;
         if (request.body.name) user.name = request.body.name;
         if (request.body.surname) user.surname = request.body.surname;
+        if (request.body.sex) user.sex = request.body.sex;
+        if (request.body.birthdate) user.birthdate = request.body.birthdate;
         if (request.body.city) user.city = request.body.city;
         user.save();
         response.json(toJson(user));
@@ -30,7 +32,7 @@ var toJson = function (user) {
         name: user.name,
         surname: user.surname,
         sex: user.sex,
-        birthday: user.birthday,
+        birthdate: user.birthdate,
         city: user.city
     };
 };

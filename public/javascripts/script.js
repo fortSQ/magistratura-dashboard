@@ -94,6 +94,8 @@ $(function () {
         $.get('/settings', function (data) {
             $('input[name=name]', $settingsForm).val(data.name);
             $('input[name=surname]', $settingsForm).val(data.surname);
+            $('input[name=birthdate]', $settingsForm).val(data.birthdate);
+            $('input[name=sex]', $settingsForm).val(data.sex);
             $('input[name=city]', $settingsForm).val(data.city);
         })
     });
