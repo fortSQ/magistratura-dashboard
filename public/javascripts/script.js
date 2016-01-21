@@ -5,8 +5,8 @@ $(function () {
     $addWidgetForm.on('submit', function (event) {
         event.preventDefault();
         createOrUpdateWidget(this, 'PUT', function (data) {
-            // добавляем в конец
-            $('.card-columns').append(data);
+            // добавляем в начало (свежие записи - первые)
+            $('.card-columns').prepend(data);
         });
     });
 
