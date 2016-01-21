@@ -8,7 +8,7 @@ router.get('/', function (request, response) {
     userId = new ObjectID(request.user.id);
     User.findById(userId, function (err, user) {
         if (err) throw err;
-        response.json(toJson(user));
+        response.json(user.json);
     });
 });
 
@@ -22,20 +22,8 @@ router.post('/', function (request, response) {
         if (request.body.birthdate) user.birthdate = request.body.birthdate;
         if (request.body.city) user.city = request.body.city;
         user.save();
-        response.json(toJson(user));
+        response.json(user.json);
     });
 });
-
-var toJson = function (user) {
-    return {
-        id: user.id,
-        name: user.name,
-        surname: user.surname,
-        sex: user.sex,
-        birthdate: user.birthdate,
-        age: user.age,
-        city: user.city
-    };
-};
 
 module.exports = router;

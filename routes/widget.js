@@ -8,7 +8,7 @@ router.get('/', function (request, response) {
     widgetId = new ObjectID(request.query.id);
     Widget.findById(widgetId, function (err, widget) {
         if (err) throw err;
-        response.json(widget.to_json);
+        response.json(widget.json);
     });
 });
 
@@ -31,7 +31,7 @@ router.post('/', function (request, response) {
         widget = setWidgetFieldsFromRequest(widget, request);
         widget.modify_date = Date.now();
         widget.save();
-        response.json(widget.to_json);
+        response.json(widget.json);
     });
 });
 

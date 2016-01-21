@@ -25,7 +25,7 @@ WidgetSchema.virtual('modified')
     .get(function() {
         return moment(this.modify_date).format("D MMM h:mm");
     });
-WidgetSchema.virtual('to_json')
+WidgetSchema.virtual('json')
     .get(function() {
         return {
             id:         this.id,

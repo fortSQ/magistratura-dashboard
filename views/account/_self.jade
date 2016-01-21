@@ -4,7 +4,7 @@
             .media
                 .media-left
                     a(href='#')
-                        img.media-object(src='images/man.png', width='64')
+                        img.media-object(src = user.sex == 'female' ? '/images/woman.png' : '/images/man.png', width='64')
                 .media-body
                     h4.media-heading= user.name + ' ' + user.surname
                     p.text-muted= user.age + ', ' + user.city
