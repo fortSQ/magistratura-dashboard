@@ -28,4 +28,4 @@ WidgetSchema.virtual('modified')
 
 var Widget = mongoose.model('Widget', WidgetSchema);
 
-exports = Widget;
+module.exports = Widget;
