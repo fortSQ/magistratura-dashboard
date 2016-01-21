@@ -21,6 +21,11 @@ UserSchema.virtual('birthdate')
     .set(function (birthdate) {
         this.birthday = moment(birthdate, 'YYYY-MM-DD').format();
     });
+UserSchema.virtual('age')
+    .get(function () {
+        // сколько прошло лет от даты рождения в ГГГГ-ММ-ДД
+        return moment().diff(this.birthdate, 'years');
+    });
 
 // Вывод в лог логина при сохранении сущности
 UserSchema.pre('save', function (next) {

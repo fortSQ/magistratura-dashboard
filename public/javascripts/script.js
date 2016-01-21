@@ -23,6 +23,7 @@ $(function () {
             $('select', $editWidgetForm).val(data.color);
             $('input[name=id]', $editWidgetForm).val(data.id);
             $('input[name=image]', $editWidgetForm).val(data.image);
+            $('input[name=position]', $editWidgetForm).val(data.position);
             // открываем его
             $(editWidget).modal();
         })
@@ -67,7 +68,9 @@ $(function () {
                 // закрываем попап
                 $form.closest('.modal').modal('hide');
                 // очищаем поля формы
-                $('input, select, textarea', $form).val('');
+                //$('input, select, textarea', $form).val('');
+                $('input, textarea', $form).val('');
+                $('select', $form).prop('selectedIndex', 0);
             }
         });
     };
@@ -95,7 +98,7 @@ $(function () {
             $('input[name=name]', $settingsForm).val(data.name);
             $('input[name=surname]', $settingsForm).val(data.surname);
             $('input[name=birthdate]', $settingsForm).val(data.birthdate);
-            $('input[name=sex]', $settingsForm).val(data.sex);
+            $('input[name=sex][value=' + data.sex + ']', $settingsForm).prop('checked', true);
             $('input[name=city]', $settingsForm).val(data.city);
         })
     });

@@ -33,6 +33,7 @@ var toJson = function (user) {
         surname: user.surname,
         sex: user.sex,
         birthdate: user.birthdate,
+        age: user.age,
         city: user.city
     };
 };
