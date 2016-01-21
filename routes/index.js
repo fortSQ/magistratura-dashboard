@@ -55,7 +55,7 @@ module.exports = function (passport) {
           user: req.user,
           widgetList: widgetList
       });
-    });
+    }).sort({position: -1, create_date: -1}); // -1 - DESC
   });
 
   /* Выход из аккаунта */

@@ -5,8 +5,8 @@ $(function () {
     $addWidgetForm.on('submit', function (event) {
         event.preventDefault();
         createOrUpdateWidget(this, 'PUT', function (data) {
-            // добавляем в конец
-            $('.card-columns').append(data);
+            // добавляем в начало (свежие записи - первые)
+            $('.card-columns').prepend(data);
         });
     });
 
@@ -23,6 +23,7 @@ $(function () {
             $('select', $editWidgetForm).val(data.color);
             $('input[name=id]', $editWidgetForm).val(data.id);
             $('input[name=image]', $editWidgetForm).val(data.image);
+            $('input[name=position]', $editWidgetForm).val(data.position);
             // открываем его
             $(editWidget).modal();
         })
@@ -67,7 +68,9 @@ $(function () {
                 // закрываем попап
                 $form.closest('.modal').modal('hide');
                 // очищаем поля формы
-                $('input, select, textarea', $form).val('');
+                //$('input, select, textarea', $form).val('');
+                $('input, textarea', $form).val('');
+                $('select', $form).prop('selectedIndex', 0);
             }
         });
     };
@@ -94,6 +97,8 @@ $(function () {
         $.get('/settings', function (data) {
             $('input[name=name]', $settingsForm).val(data.name);
             $('input[name=surname]', $settingsForm).val(data.surname);
+            $('input[name=birthdate]', $settingsForm).val(data.birthdate);
+            $('input[name=sex][value=' + data.sex + ']', $settingsForm).prop('checked', true);
             $('input[name=city]', $settingsForm).val(data.city);
         })
     });
