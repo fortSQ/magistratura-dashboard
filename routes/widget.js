@@ -62,4 +62,22 @@ router.delete('/', function (request, response) {
     });
 });
 
+// сортировочка
+router.post('/sort', function (request, response) {
+    sortIdList = request.body['sort[]'];
+    // меняем порядок сортировки, т.к. нумеруем от меньщего к большему
+    sortIdList.reverse();
+    console.log(sortIdList);
+    sortIdList.forEach(function (widgetId, position) {
+        Widget.findById(new ObjectID(widgetId), function (err, widget) {
+            if (err) throw err;
+            widget.position = position + 1;
+            widget.save(function (error) {
+                if (error) throw error;
+            });
+        });
+    });
+    response.json({status: 'ok'});
+});
+
 module.exports = router;

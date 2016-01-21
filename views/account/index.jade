@@ -19,5 +19,9 @@ block content
         $('.card-columns').sortable({
             distance : 10,
             opacity: 0.8,
-            cancel: 'blockquote'
+            cancel: 'blockquote',
+            update: function (event, ui) {
+                var data = $(this).sortable('serialize');
+                $.post('/widget/sort', data);
+            }
         });
