@@ -49,7 +49,7 @@ module.exports = function (passport) {
                                 var testWidget = new Widget();
                                 testWidget.user = user._id;
                                 testWidget.message = 'Добро пожаловать!';
-                                testWidget.images = '/images/salut.jpg';
+                                testWidget.image = '/images/salut.jpg';
                                 testWidget.save(function (err) {
                                     if (err) {
                                         console.log('Error in Saving user widget: ' + err);

@@ -12,9 +12,17 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function (passport) {
 
-  /* Страница входа */
-  router.get('/', function (req, res) {
-    res.redirect('/login');
+  /* Дашборд */
+  router.get('/', isAuthenticated, function (req, res) {
+    userId = req.user._id;
+    var Widget = require('../models/widget');
+    Widget.find({user: userId}, function (err, widgetList) {
+      if (err) throw err;
+      res.render('account/index', {
+        user: req.user,
+        widgetList: widgetList
+      });
+    }).sort({position: -1, create_date: -1}); // -1 - DESC
   });
 
   router.get('/login', function (req, res) {
@@ -33,35 +41,41 @@ module.exports = function (passport) {
 
   /* ЛОГИН */
   router.post('/login', passport.authenticate('login', {
-    successRedirect: '/home',
-    failureRedirect: '/',
+    successRedirect: '/',
+    failureRedirect: '/login',
     failureFlash : true
   }));
 
   /* РЕГИСТРАЦИЯ */
   router.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/home',
+    successRedirect: '/',
     failureRedirect: '/signup',
     failureFlash : true
   }));
-
-  /* Собственно, дашборд */
-  router.get('/home', isAuthenticated, function(req, res){
-    userId = req.user._id;
-    var Widget = require('../models/widget');
-    Widget.find({user: userId}, function (err, widgetList) {
-      if (err) throw err;
-      res.render('account/index', {
-          user: req.user,
-          widgetList: widgetList
-      });
-    }).sort({position: -1, create_date: -1}); // -1 - DESC
-  });
 
   /* Выход из аккаунта */
   router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+  });
+
+  // тестовая версия промотра чужого дашборда
+  router.get('/user/:login', isAuthenticated, function (request, response) {
+    userLogin = request.params.login;
+    var User = require('../models/user');
+    var Widget = require('../models/widget');
+    User.findOne({login: userLogin}, function (error, user) {
+      if (error) throw error;
+      Widget.find({user: user._id}, function (err, widgetList) {
+        console.log(user);
+        console.log(widgetList);
+        if (err) throw err;
+        response.render('account/index', {
+          user: request.user,
+          widgetList: widgetList
+        });
+      }).sort({position: -1, create_date: -1}); // -1 - DESC
+    });
   });
 
   return router;
