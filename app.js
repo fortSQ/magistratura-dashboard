@@ -4,9 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var MongoClient = require('mongodb').MongoClient;
-
-var users = require('./routes/users');
 
 var app = express();
 
@@ -22,23 +19,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// сессионные флеш-сообщения
 var flash = require('connect-flash');
 app.use(flash());
 
 // Конфигурация Passport
 var passport = require('passport');
 var expressSession = require('express-session');
-app.use(expressSession({secret: 'mySecretKey',resave: false,saveUninitialized: true}));
+app.use(expressSession({
+    secret: 'mySecretKey',
+    resave: false,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
+// определение файлов с роутами
 var routes = require('./routes/index')(passport);
-
 app.use('/', routes);
+var users = require('./routes/users');
 app.use('/users', users);
-
 app.use('/widget', require('./routes/widget'));
 app.use('/settings', require('./routes/settings'));
 
@@ -73,24 +75,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-//MongoClient.connect('mongodb://localhost:27017/animals', function(err, db) {
-//  if (err) {
-//    throw err;
-//  }
-//  db.collection('mammals').find().toArray(function(err, result) {
-//    if (err) {
-//      throw err;
-//    }
-//    console.log(result);
-//  });
-//});
-
+// подключаем БД
 var db = require('./db');
-//var User = require('./models/user');
-//
-//var k = new User();
-//k.save(function (err) {
-//  if (err) console.log('meow');
-//});
 
 module.exports = app;

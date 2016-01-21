@@ -14,15 +14,11 @@ router.get('/', function (request, response) {
 
 router.put('/', function (request, response) {
     widget = new Widget();
-    //widget.image = request.body.image;
-    //widget.color = request.body.color;
-    //widget.message = request.body.message;
     widget = setWidgetFieldsFromRequest(widget, request);
     widget.user = request.user.id;
     widget.save(function (err, widget) {
-        console.log(widget);
         if (err) throw err;
-        //response.json(toJson(widget));
+        // в ответ одаем отрендеренную вьюху
         response.render('widget/item', {widget: widget});
     });
 });
@@ -39,8 +35,15 @@ router.post('/', function (request, response) {
     });
 });
 
+/**
+ * Установка полей виджета из параметров запроса
+ *
+ * @param widget
+ * @param request
+ *
+ * @returns widget
+ */
 var setWidgetFieldsFromRequest = function (widget, request) {
-    console.log(request.body);
     if (request.body.image) widget.image = request.body.image;
     if (request.body.color) widget.color = request.body.color;
     if (request.body.message) widget.message = request.body.message;
@@ -52,7 +55,6 @@ router.delete('/', function (request, response) {
     userId = new ObjectID(request.user.id);
     Widget.findOne({_id: widgetId, user: userId}, function (err, widget) {
         if (err) throw err;
-        widget = setWidgetFieldsFromRequest(widget, request);
         widget.remove(function (err) {
             if (err) throw err;
             response.json({id: request.body.id});
@@ -60,6 +62,13 @@ router.delete('/', function (request, response) {
     });
 });
 
+/**
+ * Возврат удобочитаемого объекта с полями Виджета
+ *
+ * @param widget
+ *
+ * @returns json
+ */
 var toJson = function (widget) {
     return {
         id: widget.id,

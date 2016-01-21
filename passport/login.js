@@ -6,6 +6,7 @@ module.exports = function(passport){
 
     passport.use('login', new LocalStrategy({
                 passReqToCallback : true,
+                // какие поля формы (name=) являются юзернеймом и пассвордом
                 usernameField: 'login',
                 passwordField: 'password'
             },
@@ -34,7 +35,6 @@ module.exports = function(passport){
 
             })
     );
-
 
     var isValidPassword = function(user, password){
         return bCrypt.compareSync(password, user.password);

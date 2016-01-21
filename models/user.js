@@ -11,6 +11,7 @@ var UserSchema = new Schema({
     city: { type: String, default: '' }
 });
 
+// Вывод в лог логина при сохранении сущности
 UserSchema.pre('save', function (next) {
     console.log(this.login);
     next();

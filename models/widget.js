@@ -11,9 +11,12 @@ var WidgetSchema = new Schema({
     modify_date: {type: Date, default: Date.now}
 });
 
+// Декоратор дат
+// TODO: запихать локально и каким-то макаром передавать объект сюда
 var moment = require('moment');
 moment.locale('ru');
 
+// Виртуальные поля сущности (геттеры/сеттеры на них) - не записываются в базу
 WidgetSchema.virtual('created')
     .get(function() {
         return moment(this.create_date).format("D MMM h:mm");
