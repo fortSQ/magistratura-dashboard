@@ -1,26 +1,34 @@
 $(function () {
     var widgetPopup = '#add_widget';
     var $addWidgetForm = $('form[name=add_widget]', widgetPopup);
+    // добавление виджета
     $addWidgetForm.on('submit', function (event) {
         event.preventDefault();
         createOrUpdateWidget(this, 'PUT', function (data) {
+            // добавляем в конец
             $('.card-columns').append(data);
         });
     });
 
     var editWidget = '#edit_widget';
     var $editWidgetForm = $('form', editWidget);
+    // получение инфы о виджете
     $('[data-widget=edit]').on('click', function () {
         var widgetId = $(this).closest('[data-id]').data('id');
+        // GET-запрос с передачей id-шника
         $.get('/widget?id=' + widgetId, function (data) {
+            // заполняем поля попапа
             $('span.widget_id', editWidget).html(widgetId);
             $('textarea', $editWidgetForm).val(data.message);
             $('select', $editWidgetForm).val(data.color);
             $('input[name=id]', $editWidgetForm).val(data.id);
             $('input[name=image]', $editWidgetForm).val(data.image);
+            // открываем его
             $(editWidget).modal();
         })
     });
+
+    // редактирование виджета
     $editWidgetForm.on('submit', function (event) {
         event.preventDefault();
         createOrUpdateWidget(this, 'POST', function (data) {
@@ -41,6 +49,13 @@ $(function () {
         });
     });
 
+    /**
+     * AJAX-запрос на импорт (создание/редактирование) виджета
+     *
+     * @param form      Элемент формы (не jQuery-объект)
+     * @param method    Метод отпавки формы
+     * @param callback  Функция после успешного запроса (1 аргумент - полученные данные)
+     */
     var createOrUpdateWidget = function (form, method, callback) {
         $form = $(form);
         $.ajax({
@@ -49,12 +64,15 @@ $(function () {
             data: $form.serialize(),
             success: function (data) {
                 callback.call(this, data);
+                // закрываем попап
                 $form.closest('.modal').modal('hide');
+                // очищаем поля формы
                 $('input, select, textarea', $form).val('');
             }
         });
     };
 
+    // удаление виджета
     $('[data-widget=delete]').on('click', function () {
         var widgetId = $(this).closest('[data-id]').data('id');
         $.ajax({
@@ -62,6 +80,7 @@ $(function () {
             method: 'DELETE',
             data: {id: widgetId},
             success: function (data) {
+                // удаляем ноду с дата-атрибутом, который вернул аякс-запрос
                 $('.card[data-id=' + data.id + ']').remove();
             }
         });
@@ -69,6 +88,7 @@ $(function () {
 
     var settings = '#settings';
     var $settingsForm = $('form', settings);
+
     // получение настроек
     $('[data-target="#settings"]').on('click', function () {
         $.get('/settings', function (data) {
@@ -77,6 +97,7 @@ $(function () {
             $('input[name=city]', $settingsForm).val(data.city);
         })
     });
+
     // обновление настроек
     $settingsForm.on('submit', function (event) {
         event.preventDefault();
