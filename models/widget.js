@@ -25,6 +25,17 @@ WidgetSchema.virtual('modified')
     .get(function() {
         return moment(this.modify_date).format("D MMM h:mm");
     });
+WidgetSchema.virtual('json')
+    .get(function() {
+        return {
+            id:         this.id,
+            message:    this.message,
+            color:      this.color,
+            image:      this.image,
+            created:    this.created,
+            modified:   this.modified
+        };
+    });
 
 var Widget = mongoose.model('Widget', WidgetSchema);
 

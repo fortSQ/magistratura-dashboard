@@ -8,7 +8,7 @@ router.get('/', function (request, response) {
     widgetId = new ObjectID(request.query.id);
     Widget.findById(widgetId, function (err, widget) {
         if (err) throw err;
-        response.json(toJson(widget));
+        response.json(widget.json);
     });
 });
 
@@ -31,7 +31,7 @@ router.post('/', function (request, response) {
         widget = setWidgetFieldsFromRequest(widget, request);
         widget.modify_date = Date.now();
         widget.save();
-        response.json(toJson(widget));
+        response.json(widget.json);
     });
 });
 
@@ -61,23 +61,5 @@ router.delete('/', function (request, response) {
         });
     });
 });
-
-/**
- * Возврат удобочитаемого объекта с полями Виджета
- *
- * @param widget
- *
- * @returns json
- */
-var toJson = function (widget) {
-    return {
-        id: widget.id,
-        message: widget.message,
-        color: widget.color,
-        image: widget.image,
-        created: widget.created,
-        modified: widget.modified
-    };
-};
 
 module.exports = router;

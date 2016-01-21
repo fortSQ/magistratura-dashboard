@@ -26,6 +26,18 @@ UserSchema.virtual('age')
         // сколько прошло лет от даты рождения в ГГГГ-ММ-ДД
         return moment().diff(this.birthdate, 'years');
     });
+UserSchema.virtual('json')
+    .get(function() {
+        return {
+            id:         this.id,
+            name:       this.name,
+            surname:    this.surname,
+            sex:        this.sex,
+            birthdate:  this.birthdate,
+            age:        this.age,
+            city:       this.city
+        };
+    });
 
 // Вывод в лог логина при сохранении сущности
 UserSchema.pre('save', function (next) {

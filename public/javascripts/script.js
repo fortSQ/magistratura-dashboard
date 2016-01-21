@@ -23,7 +23,6 @@ $(function () {
             $('select', $editWidgetForm).val(data.color);
             $('input[name=id]', $editWidgetForm).val(data.id);
             $('input[name=image]', $editWidgetForm).val(data.image);
-            $('input[name=position]', $editWidgetForm).val(data.position);
             // открываем его
             $(editWidget).modal();
         })
@@ -111,11 +110,14 @@ $(function () {
             method: 'POST',
             data: $settingsForm.serialize(),
             success: function (data) {
-                var $userbar = $('#self .media-body');
+                var $userbar = $('#self .media');
                 $('h4', $userbar).html(data.name + ' ' + data.surname);
-                $('p', $userbar).html(data.city);
+                $('p', $userbar).html(data.age + ', ' + data.city);
+                // баба или мужик?
+                var src = data.sex == 'female' ? '/images/woman.png' : '/images/man.png';
+                $('img', $userbar).attr('src', src);
                 $settingsForm.closest('.modal').modal('hide');
-                $('input, select, textarea', $settingsForm).val('');
+                $('input:not([type=radio]), select, textarea', $settingsForm).val('');
             }
         });
     });
