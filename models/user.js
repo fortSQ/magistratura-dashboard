@@ -11,6 +11,22 @@ var UserSchema = new Schema({
     city:       {type: String, default: ''}
 });
 
+var moment = require('moment');
+moment.locale('ru');
+
+UserSchema.virtual('birthdate')
+    .get(function () {
+        return moment(this.birthday).format('YYYY-MM-DD');
+    })
+    .set(function (birthdate) {
+        this.birthday = moment(birthdate, 'YYYY-MM-DD').format();
+    });
+UserSchema.virtual('age')
+    .get(function () {
+        // сколько прошло лет от даты рождения в ГГГГ-ММ-ДД
+        return moment().diff(this.birthdate, 'years');
+    });
+
 // Вывод в лог логина при сохранении сущности
 UserSchema.pre('save', function (next) {
     console.log(this.login);
@@ -19,4 +35,4 @@ UserSchema.pre('save', function (next) {
 
 var User = mongoose.model('User', UserSchema);
 
-exports = User;
+module.exports = User;

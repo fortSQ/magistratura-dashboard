@@ -19,18 +19,18 @@
                         .form-group.row
                             label.col-sm-4.form-control-label Дата рождения
                             .col-sm-8
-                                input.form-control(type='date', placeholder='Дата рождения')
+                                input.form-control(type='date', name='birthdate', placeholder='Дата рождения')
                         .form-group.row
                             label.col-sm-4 Пол
                             .col-sm-8
                                 .radio
                                     label.c-input.c-radio
-                                        input(name='radio', type='radio')
+                                        input(type='radio', name='sex', value='male')
                                         span.c-indicator
                                         | муж
                                 .radio
                                     label.c-input.c-radio
-                                        input(name='radio', type='radio')
+                                        input(type='radio', name='sex', value='female')
                                         span.c-indicator
                                         | жен
                         .form-group.row
