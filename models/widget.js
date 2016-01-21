@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var WidgetSchema = new Schema({
-    user: {type: Schema.ObjectId, ref: 'User'},
-    message: {type: String, default: ''},
-    color: {type: String, default: 'primary'},
-    image: {type: String, default: ''},
-    position: {type: Number, default: 0},
-    create_date: {type: Date, default: Date.now},
-    modify_date: {type: Date, default: Date.now}
+    user:           {type: Schema.ObjectId, ref: 'User'},
+    message:        {type: String, default: ''},
+    color:          {type: String, default: 'primary'},
+    image:          {type: String, default: ''},
+    position:       {type: Number, default: 0},
+    create_date:    {type: Date,   default: Date.now},
+    modify_date:    {type: Date,   default: Date.now}
 });
 
 // Декоратор дат
@@ -28,4 +28,4 @@ WidgetSchema.virtual('modified')
 
 var Widget = mongoose.model('Widget', WidgetSchema);
 
-module.exports = Widget;
+exports = Widget;
