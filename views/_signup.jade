@@ -1,0 +1,14 @@
+#signup.tab-pane(class=(tab === 'signup' ? 'active' : ''))
+    form(method='post', action='/signup')
+        fieldset.form-group
+            input.form-control.form-control-lg(type='text', name='login', placeholder='Логин', required)
+        fieldset.form-group
+            input.form-control.form-control-lg(type='password', name='password', placeholder='Пароль', required)
+        fieldset.form-group
+            input.form-control.form-control-lg(type='password', name='confirm_password', placeholder='Повтор пароля', required)
+        if message != ''
+            .alert.alert-warning.alert-dismissible.fade.in
+                button.close(type='button', data-dismiss='alert')
+                    span &times;
+                | #{message}
+        button.btn.btn-primary-outline.btn-lg.btn-block(type='submit') Зарегистрироваться

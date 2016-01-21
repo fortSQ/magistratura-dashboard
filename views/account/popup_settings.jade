@@ -1,0 +1,43 @@
+#settings.modal.fade(tabindex='-1')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal')
+                    span &times
+                h4.modal-title Настройки
+            form
+                .modal-body
+                    .container-fluid
+                        .form-group.row
+                            label.col-sm-4.form-control-label Имя
+                            .col-sm-8
+                                input.form-control(type='text', name='name', placeholder='Имя')
+                        .form-group.row
+                            label.col-sm-4.form-control-label Фамилия
+                            .col-sm-8
+                                input.form-control(type='text', name='surname', placeholder='Фамилия')
+                        .form-group.row
+                            label.col-sm-4.form-control-label Дата рождения
+                            .col-sm-8
+                                input.form-control(type='date', placeholder='Дата рождения')
+                        .form-group.row
+                            label.col-sm-4 Пол
+                            .col-sm-8
+                                .radio
+                                    label.c-input.c-radio
+                                        input(name='radio', type='radio')
+                                        span.c-indicator
+                                        | муж
+                                .radio
+                                    label.c-input.c-radio
+                                        input(name='radio', type='radio')
+                                        span.c-indicator
+                                        | жен
+                        .form-group.row
+                            label.col-sm-4.form-control-label Город
+                            .col-sm-8
+                                input.form-control(type='text', name='city', placeholder='Город')
+                .modal-footer
+                    button.btn.btn-primary-outline(type='submit')
+                        i.fa.fa-floppy-o
+                        |  Сохранить

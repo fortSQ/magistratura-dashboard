@@ -1,0 +1,18 @@
+.card(data-id = widget.id)
+    img.card-img-top.img-fluid(src=widget.image)
+    .card-block.card-inverse.text-xs-center(class = 'card-' + widget.color)
+        blockquote.card-blockquote
+            p= widget.message
+            footer.text-xs-left
+                small
+                    cite(title = 'Дата публикации')
+                        | #{widget.created}
+                        if widget.created != widget.modified
+                            |  (#{widget.modified})
+                small.pull-xs-right
+                    span.edit(data-widget = 'edit')
+                        i.fa.fa-pencil
+                        | &nbsp;
+                    span.delete(data-widget = 'delete')
+                        i.fa.fa-times
+                        | &nbsp;

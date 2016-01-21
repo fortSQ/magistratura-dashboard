@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  section.container.m-t-3
+    .card-columns
+      each widget in widgetList
+        include ./widget_item
+
+
+  a.nav-link(href='#', data-toggle='modal', data-target='#add_widget')
+    i.fa.fa-plus
+    |  Добавить виджет
+  button 123
+
+  include ./popup_add_widget
+  include ./popup_edit_widget
+

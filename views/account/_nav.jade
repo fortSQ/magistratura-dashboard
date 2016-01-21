@@ -1,0 +1,27 @@
+nav.navbar.navbar-full.navbar-dark.bg-inverse
+    .container
+        button.navbar-toggler.navbar-brand(type='button', data-toggle='collapse', data-target='#self')
+            i.fa.fa-bars
+            | &nbsp;
+        ul.nav.navbar-nav
+            li.nav-item
+                a.nav-link.active(href='#')
+                    i.fa.fa-user
+                    |  Моя страница
+            li.nav-item
+                a.nav-link(href='#', data-toggle='modal', data-target='#add_widget')
+                    i.fa.fa-plus
+                    |  Добавить виджет
+        ul.nav.navbar-nav.pull-xs-right
+            li.nav-item
+                a.nav-link(href='#', data-toggle='modal', data-target='#settings')
+                    i.fa.fa-cogs
+                    |  Настройки
+            li.nav-item
+                a.nav-link(href='/logout')
+                    i.fa.fa-sign-out
+                    |  Выход
+        form.form-inline.pull-xs-right.m-r-3
+            input.form-control(type='text', placeholder='Введи друга...')
+            | &nbsp;
+            button.btn.btn-secondary-outline(type='submit') Поиск

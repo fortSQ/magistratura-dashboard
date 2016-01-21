@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    include _self
+
+    include _nav
+
+    section.container.m-t-3
+        .card-columns
+            each widget in widgetList
+                include ../widget/item
+
+    include popup_settings
+
+    include ../widget/popup_add
+    include ../widget/popup_edit
+
+    script(type='text/javascript').
+        $('.card-columns').sortable({
+            distance : 10,
+            opacity: 0.8,
+            cancel: 'blockquote'
+        });

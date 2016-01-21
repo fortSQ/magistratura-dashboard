@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    section.container
+        .m-t-3.center-block(style='max-width: 330px;')
+            h3.m-b-2.text-xs-center Магистратура
+            ul.nav.nav-tabs.m-b-2
+                li.nav-item
+                    a.nav-link(data-toggle='tab', href='#login' class=(tab === 'login' ? 'active' : '')) Вход
+                li.nav-item
+                    a.nav-link(data-toggle='tab', href='#signup' class=(tab === 'signup' ? 'active' : '')) Регистрация
+            .tab-content
+                include _login
+                include _signup

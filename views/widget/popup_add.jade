@@ -1,0 +1,30 @@
+#add_widget.modal.fade(tabindex='-1')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal')
+                    span &times;
+                h4.modal-title Добавить виджет
+            form(name='add_widget')
+                .modal-body
+                    .container-fluid
+                        fieldset.form-group.row
+                            label.col-sm-3.form-control-label Изображение
+                            .col-sm-9
+                                input.form-control(type='text', name='image', placeholder='Ссылка на изображение')
+                        fieldset.form-group.row
+                            label.col-sm-3.form-control-label Цвет
+                            .col-sm-9
+                                select.form-control.c-select(name='color')
+                                    option.bg-primary(value='primary') Синий
+                                    option.bg-success(value='success') Зеленый
+                                    option.bg-info(value='info') Голубой
+                                    option.bg-warning(value='warning') Желтый
+                                    option.bg-danger(value='danger') Красный
+                        fieldset.form-group
+                            label Текст
+                            textarea.form-control(name='message', rows='3', required)
+                .modal-footer
+                    button.btn.btn-primary-outline(type='submit')
+                        i.fa.fa-floppy-o
+                        |  Добавить
